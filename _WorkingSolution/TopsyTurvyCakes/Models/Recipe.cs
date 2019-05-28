@@ -7,10 +7,23 @@ namespace TopsyTurvyCakes.Models
     public class Recipe
     {
         public long Id { get; set; }
+
+        [Required]
+        //[MinLength(5)]
+        //[MaxLength(25)]
+        [StringLength(100,MinimumLength =5, ErrorMessage ="The name must be between 5 and 100!")]
         public string Name { get; set; }
+
+        [Required(ErrorMessage ="The recipe description is required")]
         public string Description { get; set; }
+
+        [Required]
         public string Directions { get; set; }
+
+        [Required]
         public string Ingredients { get; set; }
+
+
 
         public IEnumerable<string> DirectionsList
         {

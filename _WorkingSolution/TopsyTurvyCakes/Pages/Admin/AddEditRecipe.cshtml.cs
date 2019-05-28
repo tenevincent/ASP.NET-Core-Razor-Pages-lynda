@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,6 +10,8 @@ using TopsyTurvyCakes.Models;
 
 namespace TopsyTurvyCakes.Pages.Admin
 {
+
+    [Authorize]
     public class AddEditRecipeModel : PageModel
     {
         private IRecipesService _recipesService;
@@ -42,6 +45,12 @@ namespace TopsyTurvyCakes.Pages.Admin
 
         public async Task<IActionResult> OnPostAsync()
         {
+
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
             var recipe = await _recipesService.FindAsync(Id.GetValueOrDefault())
                 ?? new Recipe();
 
